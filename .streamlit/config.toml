@@ -1,0 +1,10 @@
+[client]
+toolbarMode="auto"
+
+[server]
+headless = true
+
+[theme]
+base="dark"
+primaryColor="#907ad6"
+font="monospace"
