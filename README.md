@@ -1,8 +1,16 @@
 # How to run the app
-### create a virtual environment
+
+### Create a virtual environment
+For macOS/Linux:
 > python3 -m venv venv  
 > source venv/bin/activate
-### install dependencies
+
+For Windows:
+> python -m venv venv  
+> .\venv\Scripts\activate
+
+### Install dependencies
 > pip install -r requirements.txt
-### run app
+
+### Run the app
 > streamlit run main_app.py
