@@ -60,8 +60,7 @@ def tuples_to_midi(data, config: SonificationConfig):
                 channel=0,
                 time=x_coordinates[i],
                 pitch=note_values[pitch_mapped_data[i]],
-                # volume=volume_mapped_data[i],
-                volume=random.randrange(80,120),
+                volume=volume_mapped_data[i] if config.relative_velocity_mapping else random.randrange(80,120),
                 duration=1
             )
             i += 1
