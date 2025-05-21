@@ -5,7 +5,7 @@ from . import AsciiConfig
 
 
 def gradient_to_char(angle):
-    angle = angle % 360 # Normalize the angle to be between 0 and 360 degrees
+    angle = angle % 360
 
     if (0 <= angle < 22.5) or (337.5 <= angle < 360) or (157.5 <= angle < 202.5):
         return '|'
@@ -27,24 +27,24 @@ def image_to_ascii(np_img, config: AsciiConfig):
     downsampled_h = h // config.text_size_px
 
 
-    np_img = cv.resize(np_img, (downsampled_w, downsampled_h), cv.INTER_NEAREST) # this uses w,h instead of h,w for some reason
+    np_img = cv.resize(np_img, (downsampled_w, downsampled_h), cv.INTER_NEAREST)
     np_img_gray = cv.cvtColor(np_img, cv.COLOR_BGR2GRAY)
 
     result_str = ""
 
-    edges = cv.Canny(np_img_gray, config.edge_detection_threshold_min, config.edge_detection_threshold_max) # custom threshold
+    edges = cv.Canny(np_img_gray, config.edge_detection_threshold_min, config.edge_detection_threshold_max)
 
-    Gx = cv.Sobel(np_img_gray, cv.CV_64F, 1, 0, ksize=3)  # gradient in X direction
-    Gy = cv.Sobel(np_img_gray, cv.CV_64F, 0, 1, ksize=3)  # gradient in Y direction
+    Gx = cv.Sobel(np_img_gray, cv.CV_64F, 1, 0, ksize=3) 
+    Gy = cv.Sobel(np_img_gray, cv.CV_64F, 0, 1, ksize=3)
 
     magnitude = np.sqrt(Gx**2 + Gy**2)
-    orientation = np.arctan2(Gy, Gx) # in radians
+    orientation = np.arctan2(Gy, Gx)
 
-    masked_magnitude = magnitude * (edges > 0) # only keep the gradients where there is an edge
-    masked_magnitude[masked_magnitude > 0] = 255 # turn every edge into a 'hard edge' (max intensity)
+    masked_magnitude = magnitude * (edges > 0) 
+    masked_magnitude[masked_magnitude > 0] = 255 
 
     masked_orientation = orientation * (edges > 0)
-    masked_orientation_degrees = np.degrees(masked_orientation) # in degrees
+    masked_orientation_degrees = np.degrees(masked_orientation)
 
     result_img = Image.new('RGB', (downsampled_w*config.text_size_px, downsampled_h*config.text_size_px), config.custom_background_color_bgr if config.use_custom_background_color else (0,0,0)) # multiply to nearest multiple of the text size, so that text is never out of bounds
     result_img_renderer = ImageDraw.Draw(result_img)
@@ -56,7 +56,7 @@ def image_to_ascii(np_img, config: AsciiConfig):
             character = config.character_map[int(len(config.character_map) * (brightness / 256))]
             if(config.use_edges):
                 if(edges[y,x]>0):
-                    current_degree = masked_orientation_degrees[y,x] # x,y inverted, because numpy stores images as h*w arrays not w*h
+                    current_degree = masked_orientation_degrees[y,x]
                     character = gradient_to_char(current_degree)
                 elif(config.only_use_edges):
                         character = ' '
@@ -69,6 +69,6 @@ def image_to_ascii(np_img, config: AsciiConfig):
                 font=config.get_text_font(),
                 fill=config.custom_text_color_bgr
                 if config.use_custom_text_color 
-                else (b,g,r)) # 6 is just the offset to attempt to center the characters
+                else (b,g,r))
         result_str += '\n'
     return np.asarray(result_img), result_str

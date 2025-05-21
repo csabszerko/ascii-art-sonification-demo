@@ -73,7 +73,6 @@ if uploaded_image is not None:
     with st.container(border=True):
         col1, spacer, col2 = st.columns([5, 1, 5], vertical_alignment='center')
 
-        # First column: Text color settings
         with col1:
             col3, col4 = st.columns([5, 1])
             with col3:
@@ -103,10 +102,8 @@ if uploaded_image is not None:
                     label_visibility='collapsed'
                 ))[::-1]
                 
-    # convert the uploaded file to a numpy array
     file_bytes = np.asarray(bytearray(uploaded_image.read()), dtype=np.uint8)
     
-    # numpy array to an opencv image
     image = cv.imdecode(file_bytes, cv.IMREAD_COLOR)
     
     ascii_image, ascii_image_text = ascii.image_to_ascii(image, config)

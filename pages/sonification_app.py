@@ -16,7 +16,7 @@ hide_decoration_bar_style = '''
 st.markdown(hide_decoration_bar_style, unsafe_allow_html=True)
 
 st.title('Sonification')
-stop_preview() #stop running midi
+stop_preview() 
 uploaded_image = st.file_uploader('Upload your image', type=['png', 'jpg', 'jpeg'], accept_multiple_files=False)
 
 if uploaded_image is not None:
@@ -24,7 +24,6 @@ if uploaded_image is not None:
     
     file_bytes = np.asarray(bytearray(uploaded_image.read()), dtype=np.uint8)
 
-    # numpy array to an opencv image
     image = cv.imdecode(file_bytes, cv.IMREAD_COLOR)
     
     with st.container(border=True):
@@ -82,7 +81,6 @@ if uploaded_image is not None:
             
             
             result_midi, plot_image_buffer, cell_image_buffer = image_data_processing.image_to_midi(image, config)
-            # print(len(plot_image_buffer), len(cell_image_buffer))
             
             plot_container = st.empty()
             if not config.process_rgb:
@@ -117,11 +115,7 @@ if uploaded_image is not None:
                             asyncio.set_event_loop(loop)
                             loop.run_until_complete(handle_async())
                         finally:
-                            # st.rerun()
-                            # print('playback finished')
-                            # print("event loop closed")
                             loop.close()
-                            # st.rerun()
                             if st.button('Play preview', use_container_width=True, key='after_playback'):
                                 st.rerun()
                         
@@ -129,4 +123,3 @@ if uploaded_image is not None:
         st.error('Select a note!')
             
     st.markdown('<a href="https://en.wikipedia.org/wiki/General_MIDI#Piano" style="color: #907ad6;"> Help with instruments </a>', unsafe_allow_html=True)
-# st.page_link('pages/ascii_app.py', label='Check out my ASCII art generator as well')

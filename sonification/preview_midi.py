@@ -15,9 +15,8 @@ async def start_preview(midi_file, bpm):
             actual_index = int(elapsed_time / (60 / bpm))
             if actual_index >= last_index:
                 last_index = actual_index
-                yield last_index + 1 # because image_buffer[0] is a blank image
+                yield last_index + 1 
 
-            # small polling rate
             pygame.time.Clock().tick(60)
     except asyncio.CancelledError:
         print("Task was canceled.")
