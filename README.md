@@ -1,5 +1,7 @@
 Rushed, janky, but most importantly: done
 
+This is the repository to keep track of my work on my BSc thesis
+
 # How to run the app
 
 ### Create a virtual environment
