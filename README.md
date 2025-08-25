@@ -1,3 +1,5 @@
+Rushed, janky, but most importantly: done
+
 # How to run the app
 
 ### Create a virtual environment
