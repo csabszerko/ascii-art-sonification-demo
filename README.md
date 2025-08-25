@@ -1,20 +1,56 @@
-Rushed, janky, but most importantly: done
+# ascii art and sonification
 
-This is the repository to keep track of my work on my BSc thesis
+> ## about
+> 
+> this is the repository to keep track of my work on my BSc thesis  
+> this is to be reworked later in a different language as separate projects
 
-# How to run the app
+> ## status report
+> 
+> implementation: rushed, janky, ***done***
 
-### Create a virtual environment
-For macOS/Linux:
+> ## features implemented
+> 
+> - ascii art generation
+>   - customizable ascii art generation rules with presets
+>     - font size
+>     - character set / inversion
+>     - edge detection / parameters
+>       -  realistic ascii conversion of edges
+>     - text and background color
+>    -  real time display of results
+>    -  copy as text to clipboard
+> - sonification 
+>   - customizable sonification (image to sound) rules with presets
+>     - custom scales
+>     - octave ranges
+>     - image processing settings
+>       - grid rows and columns
+>       - pitch mapping normalization
+>       - custom velocity mapping / range
+>       - use rgb channels of image to make chords
+>       - merge adjacent notes into one long note
+>   - real time playback and visualization of the generated audio/midi
+>     -  bpm
+>     -  midi instruments
+>     -  stepchart with real time indicator
+>     -  grid on the image with real time highlighting
+>   - download as midi
+> - sleek streamlit ui for both
+
+# how to run the app
+
+### create a virtual environment
+for macos/linux:
 > python3 -m venv venv  
 > source venv/bin/activate
 
-For Windows:
+for windows:
 > python -m venv venv  
 > .\venv\Scripts\activate
 
-### Install dependencies
+### install dependencies
 > pip install -r requirements.txt
 
-### Run the app
+### run the app
 > streamlit run main_app.py
